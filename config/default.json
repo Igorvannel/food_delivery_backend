@@ -1,9 +1,9 @@
 {
     "dbConfig": {
-        "host":"localhost",
-        "user":"root",
-        "password":"",
-        "database":"food_delivery",
+        "host":"bnkp3m913au7hfbyvdha-mysql.services.clever-cloud.com",
+        "user":"uqxt6gq9t4ls2uws",
+        "password":"yQrde0PaalF9NLSvUvi6",
+        "database":"bnkp3m913au7hfbyvdha",
         "timezone":"utc+5:30",
         "charset":"utf8mb4"
     }
