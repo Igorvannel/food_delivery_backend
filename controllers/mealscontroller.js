@@ -15,10 +15,10 @@ module.exports.controller = (app, io, socket_list) => {
         var reqObj = req.body;
 
         // Vérifier les paramètres de la requête
-        helper.CheckParameterValid(res, reqObj, ["name", "description", "price"], () => {
+        helper.CheckParameterValid(res, reqObj, ["name", "description", "image", "base_price"], () => {
             // Insérer les données du repas dans la base de données
-            db.query('INSERT INTO `meals`(`name`, `description`, `price`, `created_at`, `updated_at`) VALUES (?, ?, ?, NOW(), NOW())', [
-                reqObj.name, reqObj.description, reqObj.price
+            db.query('INSERT INTO `menu_item_detail`(`name`, `description`, `image`, `base_price`, `create_date`, `update_date`, `status`) VALUES (?, ?, ?, ?, NOW(), NOW(), 1)', [
+                reqObj.name, reqObj.description, reqObj.image, reqObj.base_price
             ], (err, result) => {
                 if (err) {
                     helper.ThrowHtmlError(err, res);
@@ -33,6 +33,7 @@ module.exports.controller = (app, io, socket_list) => {
             });
         });
     });
+
 
     // Endpoint pour récupérer tous les repas
     app.get('/api/meals', (req, res) => {
@@ -50,7 +51,22 @@ module.exports.controller = (app, io, socket_list) => {
             }
         });
     });
+    app.get('/api/search', (req, res) => {
+        // Obtenir le mot-clé de la requête
+        const keyword = req.query.keyword;
 
+        // Effectuer une recherche dans la base de données pour trouver les éléments correspondants
+        db.query('SELECT * FROM `menu_item_detail` WHERE `name` LIKE ?', [`%${keyword}%`], (err, result) => {
+            if (err) {
+                // Gérer les erreurs
+                res.status(500).json({ error: err.message });
+                return;
+            }
+
+            // Renvoyer les résultats de la recherche à l'interface utilisateur
+            res.json(result);
+        });
+    });
     // Endpoint pour mettre à jour un repas existant
     app.put('/api/meals/update/:mealId', (req, res) => {
         // Obtenir l'identifiant du repas à mettre à jour depuis les paramètres de l'URL
