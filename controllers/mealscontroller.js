@@ -51,7 +51,7 @@ module.exports.controller = (app, io, socket_list) => {
             }
         });
     });
-    app.get('/api/search', (req, res) => {
+    app.get('/api/meals/search', (req, res) => {
         // Obtenir le mot-clé de la requête
         const keyword = req.query.keyword;
 
