@@ -115,17 +115,17 @@ module.exports.controller = (app, io, socket_list) => {
 
                 db.query('UPDATE `restaurant_detail` SET `name`=?,`shop_type`=?,`food_type`=?,`address`=?,`city`=?,`state`=?,`latitude`=?,`longitude`=?,`delivery_cost`=?,`update_date`=NOW() WHERE `restaurant_id` = ? AND `status` = ? ', [
                     reqObj.name, reqObj.shop_type, reqObj.food_type, reqObj.address, reqObj.city, reqObj.state, reqObj.latitude, reqObj.longitude, reqObj.delivery_cost, reqObj.restaurant_id, "1"], (err, uResult) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (uResult.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_update_restaurant })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (uResult.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_update_restaurant })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
 
         }, "3")
@@ -199,17 +199,17 @@ module.exports.controller = (app, io, socket_list) => {
 
                 db.query('UPDATE `restaurant_detail` SET `status`=?,`update_date`=NOW() WHERE `restaurant_id` = ? AND `status` = ? ', [
                     "2", reqObj.restaurant_id, "1"], (err, uResult) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (uResult.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete_restaurant })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (uResult.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete_restaurant })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
 
         }, "3")
@@ -223,13 +223,13 @@ module.exports.controller = (app, io, socket_list) => {
 
             db.query('SELECT `restaurant_id`, `name`, `image`, `shop_type`, `food_type`, `address`, `city`, `state`, `latitude`, `longitude`, `delivery_cost`, `create_date`, `update_date`, `status` FROM `restaurant_detail` WHERE `status` = ? ', [
                 "1"], (err, result) => {
-                    if (err) {
-                        helper.ThrowHtmlError(err, res);
-                        return
-                    }
+                if (err) {
+                    helper.ThrowHtmlError(err, res);
+                    return
+                }
 
-                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                })
+                res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+            })
         }, "3")
     })
 
@@ -360,17 +360,17 @@ module.exports.controller = (app, io, socket_list) => {
 
                 db.query('UPDATE `offer_detail` SET `status`=?,`update_date`=NOW() WHERE `offer_id` = ? AND `status` != ? ', [
                     "2", reqObj.offer_id, "2"], (err, uResult) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (uResult.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete_restaurant_offer })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (uResult.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete_restaurant_offer })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
 
         }, "3")
@@ -386,17 +386,17 @@ module.exports.controller = (app, io, socket_list) => {
 
                 db.query('UPDATE `offer_detail` SET `status`=?,`update_date`=NOW() WHERE `offer_id` = ? AND `status` != ? ', [
                     reqObj.is_active, reqObj.offer_id, "2"], (err, uResult) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (uResult.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_success })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (uResult.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_success })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
 
         }, "3")
@@ -410,12 +410,12 @@ module.exports.controller = (app, io, socket_list) => {
 
             db.query('SELECT `offer_id`, `name`, `restaurant_id`, `image`, `start_date`, `end_date`, `status`, `create_date`, `update_date` FROM `offer_detail` WHERE `status` != ? ', [
                 "2"], (err, result) => {
-                    if (err) {
-                        helper.ThrowHtmlError(err, res);
-                        return
-                    }
-                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                })
+                if (err) {
+                    helper.ThrowHtmlError(err, res);
+                    return
+                }
+                res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+            })
         }, "3")
     })
 
@@ -427,12 +427,12 @@ module.exports.controller = (app, io, socket_list) => {
 
             db.query('SELECT `about_id`, `detail` FROM `about_detail` WHERE `status` = ? ORDER BY `display_order` ', [
                 "1"], (err, result) => {
-                    if (err) {
-                        helper.ThrowHtmlError(err, res);
-                        return
-                    }
-                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                })
+                if (err) {
+                    helper.ThrowHtmlError(err, res);
+                    return
+                }
+                res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+            })
         }, "3")
     })
 
@@ -444,18 +444,18 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["detail", "display_order"], () => {
                 db.query('INSERT INTO `about_detail`(`detail`, `display_order`, `created_date`, `update_date`) VALUES (?,?,NOW(), NOW() )', [
                     reqObj.detail, reqObj.display_order], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result) {
-                            res.json({ "status": "1", "message": msg_add })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
+                    if (result) {
+                        res.json({ "status": "1", "message": msg_add })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
 
-                    })
+                })
             })
         }, "3")
     })
@@ -468,17 +468,17 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["about_id", "detail", "display_order"], () => {
                 db.query('UPDATE `about_detail` SET `detail` = ?, `display_order` = ?,`update_date` = NOW() WHERE `about_id` = ?  AND `status` = ? ', [
                     reqObj.detail, reqObj.display_order, reqObj.about_id, "1"], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_update })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (result.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_update })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
         }, "3")
     })
@@ -491,17 +491,17 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["about_id"], () => {
                 db.query('UPDATE `about_detail` SET `status` = ?, `update_date` = NOW() WHERE `about_id` = ?  AND `status` = ? ', [
                     "2", reqObj.about_id, "1"], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (result.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
         }, "3")
     })
@@ -633,17 +633,17 @@ module.exports.controller = (app, io, socket_list) => {
 
                 db.query('UPDATE `category_detail` SET `status`=?,`update_date`=NOW() WHERE `category_id` = ? AND `status` != ? ', [
                     "2", reqObj.category_id, "2"], (err, uResult) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (uResult.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete_category })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (uResult.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete_category })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
 
         }, "3")
@@ -657,12 +657,12 @@ module.exports.controller = (app, io, socket_list) => {
 
             db.query('SELECT `category_id`, `name`, `image`, `create_date`, `update_date` FROM `category_detail` WHERE `status` != ? ', [
                 "2"], (err, result) => {
-                    if (err) {
-                        helper.ThrowHtmlError(err, res);
-                        return
-                    }
-                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                })
+                if (err) {
+                    helper.ThrowHtmlError(err, res);
+                    return
+                }
+                res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+            })
         }, "3")
     })
 
@@ -790,17 +790,17 @@ module.exports.controller = (app, io, socket_list) => {
 
                 db.query('UPDATE `menu_detail` SET `status`=?,`update_date`=NOW() WHERE `menu_id` = ? AND `status` != ? ', [
                     "2", reqObj.menu_id, "2"], (err, uResult) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (uResult.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete_menu })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (uResult.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete_menu })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
 
         }, "3")
@@ -814,12 +814,12 @@ module.exports.controller = (app, io, socket_list) => {
 
             db.query('SELECT `menu_id`, `name`, `image`, `create_date`, `update_date` FROM `menu_detail` WHERE `status` != ? ', [
                 "2"], (err, result) => {
-                    if (err) {
-                        helper.ThrowHtmlError(err, res);
-                        return
-                    }
-                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                })
+                if (err) {
+                    helper.ThrowHtmlError(err, res);
+                    return
+                }
+                res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+            })
         }, "3")
     })
 
@@ -947,17 +947,17 @@ module.exports.controller = (app, io, socket_list) => {
 
                 db.query('UPDATE `menu_item_detail` SET `status`=?,`update_date`=NOW() WHERE `menu_item_id` = ? AND `status` != ? AND `restaurant_id` = ? ', [
                     "2", reqObj.menu_item_id, "2", reqObj.restaurant_id], (err, uResult) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (uResult.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete_menu_item })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (uResult.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete_menu_item })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
 
         }, "3")
@@ -971,12 +971,12 @@ module.exports.controller = (app, io, socket_list) => {
 
             db.query('SELECT `menu_item_id`, `menu_id`, `restaurant_id`, `category_id`, `food_type`, `name`, `image`, `is_portion_allow`, `is_custom_ingredient_allow`, `description`, `base_price`, `create_date`, `update_date`  FROM `menu_item_detail` WHERE `status` != ? ', [
                 "2"], (err, result) => {
-                    if (err) {
-                        helper.ThrowHtmlError(err, res);
-                        return
-                    }
-                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                })
+                if (err) {
+                    helper.ThrowHtmlError(err, res);
+                    return
+                }
+                res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+            })
         }, "3")
     })
 
@@ -988,18 +988,18 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["menu_item_id", "name", "addition_price"], () => {
                 db.query('INSERT INTO `portion_detail`(`menu_item_id`, `name`, `addition_price` , `create_date`, `update_date`) VALUES (?,?,?, NOW(), NOW() )', [
                     reqObj.menu_item_id, reqObj.name, reqObj.addition_price], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result) {
-                            res.json({ "status": "1", "message": msg_add_portion })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
+                    if (result) {
+                        res.json({ "status": "1", "message": msg_add_portion })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
 
-                    })
+                })
             })
         }, "3")
     })
@@ -1012,17 +1012,17 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["portion_id", "menu_item_id", "name", "addition_price"], () => {
                 db.query('UPDATE `portion_detail` SET `name` = ?, `addition_price` = ?,`update_date` = NOW() WHERE `portion_id` = ?  AND `status` = ? AND `menu_item_id` = ? ', [
                     reqObj.name, reqObj.addition_price, reqObj.portion_id, "1", reqObj.menu_item_id], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_update_portion })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (result.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_update_portion })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
         }, "3")
     })
@@ -1035,17 +1035,17 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["portion_id", "menu_item_id"], () => {
                 db.query('UPDATE `portion_detail` SET `status` = ?, `update_date` = NOW() WHERE `portion_id` = ?  AND `status` = ? AND `menu_item_id`', [
                     "2", reqObj.portion_id, "1", reqObj.menu_item_id], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete_portion })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (result.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete_portion })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
         }, "3")
     })
@@ -1058,12 +1058,12 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["menu_item_id"], () => {
                 db.query('SELECT `portion_id`, `menu_item_id`, `name`, `addition_price`, `create_date`, `update_date`, `status` FROM `portion_detail` WHERE  `menu_item_id` = ? AND `status` = ?', [
                     reqObj.menu_item_id, "1"], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
-                        res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                    })
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
+                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+                })
             })
         }, "3")
     })
@@ -1076,18 +1076,18 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["menu_item_id", "name", "addition_price"], () => {
                 db.query('INSERT INTO `ingredient_detail`(`menu_item_id`, `name`, `addition_price` , `create_date`, `update_date`) VALUES (?,?,?, NOW(), NOW() )', [
                     reqObj.menu_item_id, reqObj.name, reqObj.addition_price], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result) {
-                            res.json({ "status": "1", "message": msg_add_ingredient })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
+                    if (result) {
+                        res.json({ "status": "1", "message": msg_add_ingredient })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
 
-                    })
+                })
             })
         }, "3")
     })
@@ -1100,17 +1100,17 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["ingredient_id", "menu_item_id", "name", "addition_price"], () => {
                 db.query('UPDATE `ingredient_detail` SET `name` = ?, `addition_price` = ?,`update_date` = NOW() WHERE `ingredient_id` = ?  AND `status` = ? AND `menu_item_id` = ? ', [
                     reqObj.name, reqObj.addition_price, reqObj.ingredient_id, "1", reqObj.menu_item_id], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_update_ingredient })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (result.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_update_ingredient })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
         }, "3")
     })
@@ -1123,17 +1123,17 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["ingredient_id", "menu_item_id"], () => {
                 db.query('UPDATE `ingredient_detail` SET `status` = ?, `update_date` = NOW() WHERE `ingredient_id` = ?  AND `status` = ? AND `menu_item_id`', [
                     "2", reqObj.ingredient_id, "1", reqObj.menu_item_id], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
 
-                        if (result.affectedRows > 0) {
-                            res.json({ "status": "1", "message": msg_delete_ingredient })
-                        } else {
-                            res.json({ "status": "0", "message": msg_fail })
-                        }
-                    })
+                    if (result.affectedRows > 0) {
+                        res.json({ "status": "1", "message": msg_delete_ingredient })
+                    } else {
+                        res.json({ "status": "0", "message": msg_fail })
+                    }
+                })
             })
         }, "3")
     })
@@ -1146,12 +1146,12 @@ module.exports.controller = (app, io, socket_list) => {
             helper.CheckParameterValid(res, reqObj, ["menu_item_id"], () => {
                 db.query('SELECT `ingredient_id`, `menu_item_id`, `name`, `addition_price`, `create_date`, `update_date`, `status` FROM `ingredient_detail` WHERE  `menu_item_id` = ? AND `status` = ?', [
                     reqObj.menu_item_id, "1"], (err, result) => {
-                        if (err) {
-                            helper.ThrowHtmlError(err, res);
-                            return
-                        }
-                        res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
-                    })
+                    if (err) {
+                        helper.ThrowHtmlError(err, res);
+                        return
+                    }
+                    res.json({ "status": "1", "payload": result.replace_null(), "message": msg_success })
+                })
             })
         }, "3")
     })
