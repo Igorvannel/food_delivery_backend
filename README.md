@@ -24,7 +24,6 @@
 15) Update User Profile Api
 16) Update User Profile Image Api
 
-- [Youtube Video - 4: Food Delivery Create Admin Category, Menu, Menu Item Api) ](https://youtu.be/KgcNZAifq_8)
 
 <b> Admin Api: </b>
 
